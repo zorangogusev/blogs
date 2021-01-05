@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import morgan from 'morgan'
 import expressLayouts from 'express-ejs-layouts'
 
-import webRoutes from './routes/web/webRoutes.js'
+import webRoutes from './routes/webRoutes.js'
 
 /** Load dotenv file witn enviromental data */
 dotenv.config({ path: './config/config.env' })
