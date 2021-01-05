@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
+import colors from 'colors'
 import expressLayouts from 'express-ejs-layouts'
 
 import webRoutes from './routes/webRoutes.js'
@@ -21,6 +22,6 @@ app.set('view engine', 'ejs')
 /** Import Routes */
 app.use('/', webRoutes)
 
-
+/** Create Server */
 const PORT = process.env.PORT || 5000
-app.listen(PORT, console.log(`...Server started on port ${PORT}...`))
+app.listen(PORT, console.log(`...Server started on port ${PORT}...`.yellow.bold))
