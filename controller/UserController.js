@@ -56,7 +56,7 @@ class UserController {
         const newUser = new User({ name, email, password })
         newUser.save()
         
-
+        req.flash('success_message', 'You are regitered and can log in.')
         res.redirect('/login')
     }
 }

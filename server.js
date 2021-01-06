@@ -6,6 +6,8 @@ import colors from 'colors'
 import expressLayouts from 'express-ejs-layouts'
 import mongoose from 'mongoose'
 import connectDB from './database/connection.js'
+import session from 'express-session'
+import flash from 'connect-flash'
 
 import webRoutes from './routes/webRoutes.js'
 
@@ -28,6 +30,18 @@ app.set('view engine', 'ejs')
 
 /** Body parser */
 app.use(express.urlencoded({ extended: false }))
+
+/** Implement Express Session */
+app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }))
+
+/** Implement Connect Flash */
+app.use(flash())
+
+/** Create Global Vars */
+app.use((req, res, next) => {
+    res.locals.success_message = req.flash('success_message')
+    next()
+})
 
 /** Load assets */
 app.use('/css', express.static(path.resolve('assets/css')))
