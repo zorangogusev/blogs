@@ -20,6 +20,9 @@ if (process.env.NODE_ENV === 'development')
 app.use(expressLayouts)
 app.set('view engine', 'ejs')
 
+/** Body parser */
+app.use(express.urlencoded({ extended: false }))
+
 /** Load assets */
 app.use('/css', express.static(path.resolve('assets/css')))
 app.use('/js', express.static(path.resolve('assets/js')))

@@ -22,7 +22,16 @@ class HomeController {
       * @route   GET /login
       * @access  Public
      */
-    login = (req, res, next) => { 
+    loginPage = (req, res, next) => { 
+        res.render('login') 
+    }
+
+        /**
+      * @desc    Login user
+      * @route   POST /login
+      * @access  Public
+     */
+    loginUser = (req, res, next) => { 
         res.render('login') 
     }
 
@@ -31,7 +40,19 @@ class HomeController {
       * @route   GET /register
       * @access  Public
      */
-    register = (req, res, next) => {
+    registerPage = (req, res, next) => {
+        res.render('register') 
+    }
+    
+    /**
+      * @desc    Create user
+      * @route   POST /register
+      * @access  Public
+     */
+    createUser = (req, res, next) => {
+        console.log('here')
+        console.log(req.body)
+
         res.render('register') 
     }
 }
