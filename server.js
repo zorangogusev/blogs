@@ -15,6 +15,7 @@ dotenv.config({ path: './config/config.env' })
 /** Connect to database */
 connectDB()
 
+/** Implement express framework */
 const app = express()
 
 /** Implement morgan */
