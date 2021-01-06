@@ -4,11 +4,16 @@ import dotenv from 'dotenv'
 import morgan from 'morgan'
 import colors from 'colors'
 import expressLayouts from 'express-ejs-layouts'
+import mongoose from 'mongoose'
+import connectDB from './database/connection.js'
 
 import webRoutes from './routes/webRoutes.js'
 
 /** Load dotenv file with enviromental data */
 dotenv.config({ path: './config/config.env' })
+
+/** Connect to database */
+connectDB()
 
 const app = express()
 
