@@ -14,8 +14,10 @@ router.get('/register', HomeController.registerPage)
 
 router.post('/login', UserController.loginUser)
 router.post('/register', UserController.registerUser)
+router.get('/logout', ensureAuthenticated, UserController.logout)
+
 
 router.get('/bloger/dashboard', ensureAuthenticated, BlogerController.dashboard)
-router.get('/logout', ensureAuthenticated, UserController.logout)
+
 
 export default router
