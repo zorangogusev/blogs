@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
+import passport from 'passport'
 
 class UserController {
     
@@ -9,8 +10,11 @@ class UserController {
       * @access  Public
      */
     loginUser = (req, res, next) => { 
-        console.log('loginUser here')
-        res.render('login') 
+        passport.authenticate('local',  {
+            successRedirect: '/bloger/dashboard',
+            failureRedirect: '/login',
+            failureFlash: true
+        })(req, res, next);
     }
     
     /**

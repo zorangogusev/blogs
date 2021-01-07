@@ -8,6 +8,7 @@ import mongoose from 'mongoose'
 import connectDB from './database/connection.js'
 import session from 'express-session'
 import flash from 'connect-flash'
+import passport from 'passport'
 
 import webRoutes from './routes/webRoutes.js'
 
@@ -20,6 +21,9 @@ connectDB()
 /** Implement express framework */
 const app = express()
 
+/** Passport config */
+import './library/passport.js'
+
 /** Implement morgan */
 if (process.env.NODE_ENV === 'development') 
     app.use(morgan('dev'))
@@ -27,12 +31,16 @@ if (process.env.NODE_ENV === 'development')
 /** Implement ejs */
 app.use(expressLayouts)
 app.set('view engine', 'ejs')
-
+app.set('layout', 'layout');
 /** Body parser */
 app.use(express.urlencoded({ extended: false }))
 
 /** Implement Express Session */
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }))
+
+/** Passport Middleware */
+app.use(passport.initialize());
+app.use(passport.session());
 
 /** Implement Connect Flash */
 app.use(flash())
@@ -40,6 +48,7 @@ app.use(flash())
 /** Create Global Vars */
 app.use((req, res, next) => {
     res.locals.success_message = req.flash('success_message')
+    res.locals.error = req.flash('error');
     next()
 })
 
@@ -51,6 +60,7 @@ app.use('/fontawesome', express.static(path.resolve('assets/fontawesome')))
 
 /** Import Routes */
 app.use('/', webRoutes)
+app.use('/bloger', webRoutes)
 
 /** Create Server */
 const PORT = process.env.PORT || 5000

@@ -8,7 +8,6 @@ class BlogerController {
     dashboard = (req, res, next) => {
         res.render('bloger/dashboard')
     }
-
 }
 
 const blogercontroller = new BlogerController

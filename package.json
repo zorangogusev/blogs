@@ -11,7 +11,9 @@
     "express-session": "^1.17.1",
     "latest-version": "^5.1.0",
     "mongoose": "^5.11.10",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "name": "blogs",
   "description": "",
