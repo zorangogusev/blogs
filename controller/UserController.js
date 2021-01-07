@@ -63,6 +63,12 @@ class UserController {
         req.flash('success_message', 'You are regitered and can log in.')
         res.redirect('/login')
     }
+
+    logout = (req, res, next) => {
+        req.logout()
+        req.flash('success_message', 'Successfully logged out.')
+        res.redirect('/login')
+    }
 }
 
 const usercontroller = new UserController

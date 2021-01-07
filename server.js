@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'development')
 /** Implement ejs */
 app.use(expressLayouts)
 app.set('view engine', 'ejs')
-app.set('layout', 'layout');
+
 /** Body parser */
 app.use(express.urlencoded({ extended: false }))
 

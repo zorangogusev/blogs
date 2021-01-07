@@ -6,7 +6,7 @@ class BlogerController {
       * @access  Private
      */
     dashboard = (req, res, next) => {
-        res.render('bloger/dashboard')
+        res.render('bloger/dashboard', { user: req.user })
     }
 }
 
