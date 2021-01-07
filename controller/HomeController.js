@@ -1,4 +1,5 @@
 class HomeController {
+    
     /**
       * @desc    Home page
       * @route   GET /

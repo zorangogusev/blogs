@@ -48,6 +48,7 @@ app.use(flash())
 /** Create Global Vars */
 app.use((req, res, next) => {
     res.locals.success_message = req.flash('success_message')
+    res.locals.error_message = req.flash('error_message')
     res.locals.error = req.flash('error');
     next()
 })
@@ -60,7 +61,6 @@ app.use('/fontawesome', express.static(path.resolve('assets/fontawesome')))
 
 /** Import Routes */
 app.use('/', webRoutes)
-app.use('/bloger', webRoutes)
 
 /** Create Server */
 const PORT = process.env.PORT || 5000
