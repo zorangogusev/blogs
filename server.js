@@ -11,6 +11,9 @@ import flash from 'connect-flash'
 import passport from 'passport'
 import globalVars from './middleware/globalVars.js'
 
+import connectMongo from 'connect-mongo';
+const MongoStore = connectMongo(session);
+
 import webRoutes from './routes/webRoutes.js'
 
 /** Load dotenv file with enviromental data */
@@ -36,8 +39,12 @@ app.set('view engine', 'ejs')
 /** Body parser */
 app.use(express.urlencoded({ extended: false }))
 
-/** Implement Express Session */
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }))
+/** Implement Express Session - 8 hours */
+app.use(session({ secret: "mysecrets", resave: false, saveUninitialized: false,
+                  store: new MongoStore({  mongooseConnection: mongoose.connection, ttl: 14 * 24 * 60 * 60}),
+                  originalMaxAge: 8 * 60 * 60 * 1000
+                })
+        )
 
 /** Passport Middleware */
 app.use(passport.initialize());
