@@ -23,12 +23,31 @@ class UserController {
       * @access  Public
      */
     registerUser = async (req, res, next) => {
-        console.log('createUser')
-        console.log(req.body)
+        const { name, email, password, password2 } = req.body
+                              
+        await this.validateUserInputFields(req, res, next)
 
+        if (req.errors) {                     
+            let errors = req.errors
+            res.render('register', { errors, name, email, password, password2 })
+        } else { 
+            const newUser = new User({ name, email, password })
+            newUser.save()
+            
+            req.flash('success_message', 'You are regitered and can log in.')
+            res.redirect('/login')
+        }
+    }
+
+    logout = (req, res, next) => {
+        req.logout()
+        req.flash('success_message', 'Successfully logged out.')
+        res.redirect('/login')
+    }
+
+    validateUserInputFields = async (req, res, next) => {
         const { name, email, password, password2 } = req.body
         let errors = []
-
 
         /** Check required fields */
         if (!name || !email || !password || !password2) {
@@ -52,22 +71,9 @@ class UserController {
             errors.push({ message: 'Email is already register' })
         }
 
-        if (errors.length > 0) {
-            res.render('register', { errors, name, email, password, password2}) 
-            return
-        }
+        req.errors = (errors.length > 0) ? errors : false
 
-        const newUser = new User({ name, email, password })
-        newUser.save()
-        
-        req.flash('success_message', 'You are regitered and can log in.')
-        res.redirect('/login')
-    }
-
-    logout = (req, res, next) => {
-        req.logout()
-        req.flash('success_message', 'Successfully logged out.')
-        res.redirect('/login')
+        next()
     }
 }
 

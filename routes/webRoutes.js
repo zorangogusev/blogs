@@ -2,7 +2,7 @@ import express from 'express'
 import HomeController from '../controller/HomeController.js'
 import UserController from '../controller/UserController.js'
 import BlogerController from '../controller/BlogerController.js'
-import ensureAuthenticated from '../library/ensureAuthenticated.js'
+import ensureAuthenticated from '../middleware/ensureAuthenticated.js'
 
 const router = express.Router()
 

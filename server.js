@@ -9,6 +9,7 @@ import connectDB from './database/connection.js'
 import session from 'express-session'
 import flash from 'connect-flash'
 import passport from 'passport'
+import globalVars from './middleware/globalVars.js'
 
 import webRoutes from './routes/webRoutes.js'
 
@@ -45,15 +46,8 @@ app.use(passport.session());
 /** Implement Connect Flash */
 app.use(flash())
 
-/** Create Global Vars */
-app.use((req, res, next) => {
-    res.locals.success_message = req.flash('success_message')
-    res.locals.error_message = req.flash('error_message')
-    res.locals.error = req.flash('error')
-    res.locals.userIsLoggedIn = req.isAuthenticated();
-    if (req.user) res.locals.loggedInUserData = req.user
-    next()
-})
+/** Implement Global Vars */
+app.use(globalVars)
 
 /** Load assets */
 app.use('/css', express.static(path.resolve('assets/css')))
