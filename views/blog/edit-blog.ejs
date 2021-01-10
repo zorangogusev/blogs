@@ -1,5 +1,23 @@
 <h4 class="mt-5">Edit Blog</h4>
 
+<%if (success_message != '') { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success_message %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
+
+  <%if (error_message != '') { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= error_message %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
+
 <form action="/blog/edit/<%= blog.id %>?_method=PUT" method="POST">
     <div class="form-group">
         <label for="title">Title</label>
@@ -10,7 +28,7 @@
         <textarea name="description" id="description" class="form-control"><%= blog.description %></textarea>
     </div>
 
-    <a href="/bloger/dashboard" class="btn btn-secondary">Cancel</a>
+    <a href="/bloger/dashboard" class="btn btn-secondary">Back to Dashboard</a>
     <button type="submit" class="btn btn-primary">Edit</button>
 </form>
   

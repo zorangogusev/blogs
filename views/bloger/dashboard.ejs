@@ -1,25 +1,39 @@
-<h1>Dashboard page</h1> 
-<p>Welcome <%= user.name %></p>
+<h4 class="mt-5">Blogs</h4>
+<div class="text-right">
+    <a href="/blog/new" class="btn btn-success">New Blog</a>
+</div>
 
-<a href="/blog/new" class="btn btn-success">New Blog</a>
+<%if (success_message != '') { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success_message %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
+
+  <%if (error_message != '') { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= error_message %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% } %>
 
 <% blogs.forEach(blog => { %>
 <div class="card mt-4">
     <div class="card-body">
         <h4 class="card-title"><%= blog.title %></h4>
         <div class="card-subtitle text-muted mb-2">
-
+          <%= blog.createdAt.toLocaleDateString() %>
         </div>
         <div class="card-text mb-2"><%= blog.description %></div>
-        <a href="/blog/<%= blog.slug %>" class="btn btn-primary">Read More test</a>
+        <a href="/blog/<%= blog.id %>" class="btn btn-primary">Read More test</a>
         <a href="/blog/edit/<%= blog.id %>" class="btn btn-info">Edit</a>
-        <form action="/blog/1?_method=DELETE" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger">Delete</button>
+        <form id="formForDeleteBlog" action="/blog/<%= blog.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger" onclick="deleteBlog(event)">Delete</button>
           </form>
     </div>
 </div>
-  <% }) %>
-
-  <script>
-      console.log(document.cookie.length)
-  </script>
+<% }) %>

@@ -24,7 +24,7 @@ router.get('/bloger/dashboard', ensureAuthenticated, BlogerController.dashboard)
 
 router.get('/blog/new', ensureAuthenticated, BlogController.newBlog)
 router.post('/blog/new', ensureAuthenticated, BlogController.saveNewBlog)
-router.get('/blog/:slug', ensureAuthenticated, BlogController.showBlog)
+router.get('/blog/:id', ensureAuthenticated, BlogController.showBlog)
 router.get('/blog/edit/:id', ensureAuthenticated, BlogController.editBlog)
 router.put('/blog/edit/:id', ensureAuthenticated, BlogController.saveEditBlog)
 router.delete('/blog/:id', ensureAuthenticated, BlogController.deleteBlog)
