@@ -1,0 +1,15 @@
+<h4 class="mt-5">Create New Blog</h4>
+
+<form action="/blog/new" method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input required type="text" name="title" id="title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" class="form-control"></textarea>
+    </div>
+
+    <a href="/bloger/dashboard" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

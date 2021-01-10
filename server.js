@@ -10,6 +10,8 @@ import session from 'express-session'
 import flash from 'connect-flash'
 import passport from 'passport'
 import globalVars from './middleware/globalVars.js'
+import cookieParser from 'cookie-parser'
+import methodOverride from 'method-override'
 
 import connectMongo from 'connect-mongo';
 const MongoStore = connectMongo(session);
@@ -38,6 +40,12 @@ app.set('view engine', 'ejs')
 
 /** Body parser */
 app.use(express.urlencoded({ extended: false }))
+
+/** Cookie parser */
+app.use(cookieParser())
+
+/** Implement Method Override */
+app.use(methodOverride('_method'))
 
 /** Implement Express Session - 8 hours */
 app.use(session({ secret: "mysecrets", resave: false, saveUninitialized: false,
