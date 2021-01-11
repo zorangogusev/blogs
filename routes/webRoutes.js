@@ -1,20 +1,18 @@
 import express from 'express'
 import ensureAuthenticated from '../middleware/ensureAuthenticated.js'
-import ensureIsNotAuthenticated from '../middleware/ ensureIsNotAuthenticated.js'
+import ensureIsNotAuthenticated from '../middleware/ensureIsNotAuthenticated.js'
 
 import HomeController from '../controller/HomeController.js'
 import UserController from '../controller/UserController.js'
 import BlogerController from '../controller/BlogerController.js'
 import BlogController from '../controller/BlogController.js'
 
-
-
 const router = express.Router()
 
 
 router.get('/', HomeController.home)
 router.get('/about', HomeController.about)
-router.get('/login', ensureIsNotAuthenticated, HomeController.loginPage)
+router.get('/login', ensureIsNotAuthenticated,  HomeController.loginPage)
 router.get('/register', ensureIsNotAuthenticated, HomeController.registerPage)
 
 
