@@ -23,7 +23,7 @@ router.get('/logout', ensureAuthenticated, UserController.logout)
 router.get('/bloger/dashboard', ensureAuthenticated, BlogerController.dashboard)
 
 router.get('/blog/new', ensureAuthenticated, BlogController.newBlog)
-router.post('/blog/new', ensureAuthenticated, BlogController.saveNewBlog)
+router.post('/blog/saveNewBlog', ensureAuthenticated, BlogController.saveNewBlog)
 router.get('/blog/:id', ensureAuthenticated, BlogController.showBlog)
 router.get('/blog/edit/:id', ensureAuthenticated, BlogController.editBlog)
 router.put('/blog/edit/:id', ensureAuthenticated, BlogController.saveEditBlog)

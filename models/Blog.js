@@ -20,6 +20,9 @@ const blogSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
+    photo: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -28,7 +31,7 @@ const blogSchema = mongoose.Schema({
 
 blogSchema.pre('validate', async function(next) {
     if(this.title) {
-        this.slug = slugify(this.title, { lower: true, strict: true })
+        this.slug = slugify(this.title + '-' + Date.now(), { lower: true, strict: true })
     }
 
     next()

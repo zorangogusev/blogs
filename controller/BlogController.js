@@ -1,4 +1,6 @@
 import Blog from '../models/Blog.js'
+import { uploadPhoto } from '../middleware/uploadPhoto.js'
+import fs from 'fs'
 
 class BlogController {
 
@@ -19,12 +21,24 @@ class BlogController {
      */
     saveNewBlog = async (req, res, next) => {
         req.body.user = req.user.id
+        const title = req.body.title
+        const description = req.body.description
 
         try {
             let newBlog = await Blog.create(req.body)
 
-            req.flash('success_message', 'Successfully created new blog.')
-            res.redirect('/bloger/dashboard')
+            await uploadPhoto(req, res, () => {
+                if(req.fileValidationError) {
+                    res.render('blog/new-blog', { 
+                        error_message: req.fileValidationError,
+                        title: title,
+                        description: description
+                    })
+                } else {
+                    req.flash('success_message', 'Successfully created new blog.')
+                    res.redirect('/bloger/dashboard')
+                }
+            })
         } catch(error) {
             req.flash('error_message', 'Error, please try again.')
             res.redirect('/blog/new')
@@ -67,17 +81,33 @@ class BlogController {
       * @access  Private
      */
     saveEditBlog = async (req, res, next) => {
-            let blog = await Blog.findById(req.params.id)
-           
-            if(await blog.user.toString() !== req.user._id.toString()) {
-                return res.redirect('/bloger/dashboard')
-            }
+        let blog = await Blog.findById(req.params.id)
+        let old_photo = blog.photo
+        let new_photo = req.body.photo
+        
+        if(await blog.user.toString() !== req.user._id.toString()) {
+            return res.redirect('/bloger/dashboard')
+        }
 
         try {
             let blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
                 runValidators: true
             })
+
+            if(new_photo) {
+                if(fs.existsSync(process.cwd() + '/assets/photos/blog-photos/' + old_photo)) {
+                    fs.unlink(process.cwd() + '/assets/photos/blog-photos/' + old_photo, (err) => console.log(err))  
+                }
+
+                await uploadPhoto(req, res, () => {
+                    if(req.fileValidationError) {
+                        let message = req.fileValidationError
+                    } else {
+                        let message = 'Blog successfully edited.'
+                    }
+                })
+            }
 
             req.flash('success_message', 'Blog successfully edited.')
             res.redirect('/blog/edit/' + req.params.id)
@@ -93,19 +123,21 @@ class BlogController {
       * @access  Private
      */
     deleteBlog = async (req, res, next) => {
-        console.log('delete blog')
         let blog = await Blog.findById(req.params.id)
+        let photoForDeleting = blog.photo
            
-        console.log(blog)
-        if(await blog.user.toString() !== req.user._id.toString()) {3
-            console.log('not owner')
+        if(await blog.user.toString() !== req.user._id.toString()) {
             return res.redirect('/bloger/dashboard')
         }
 
-        blog.remove()
+        if(await blog.remove()) {
+            if(fs.existsSync(process.cwd() + '/assets/photos/blog-photos/' + photoForDeleting)) {
+                fs.unlink(process.cwd() + '/assets/photos/blog-photos/' + photoForDeleting, (err) => console.log(err))  
+            }
 
-        req.flash('success_message', 'Blog successfully deleted.')
-        res.redirect('/bloger/dashboard')
+            req.flash('success_message', 'Blog successfully deleted.')
+            res.redirect('/bloger/dashboard')
+        }
     }
 }
 

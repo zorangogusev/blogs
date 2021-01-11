@@ -12,9 +12,13 @@ import passport from 'passport'
 import globalVars from './middleware/globalVars.js'
 import cookieParser from 'cookie-parser'
 import methodOverride from 'method-override'
+import bodyParser from 'body-parser'
+import multer from 'multer'
+import cors from 'cors'
+import { uploadPhoto } from './middleware/uploadPhoto.js'
 
-import connectMongo from 'connect-mongo';
-const MongoStore = connectMongo(session);
+import connectMongo from 'connect-mongo'
+const MongoStore = connectMongo(session)
 
 import webRoutes from './routes/webRoutes.js'
 
@@ -26,6 +30,9 @@ connectDB()
 
 /** Implement express framework */
 const app = express()
+
+/** Implement uploadPhoto */
+app.use(uploadPhoto)
 
 /** Passport config */
 import './library/passport.js'
@@ -46,6 +53,9 @@ app.use(cookieParser())
 
 /** Implement Method Override */
 app.use(methodOverride('_method'))
+
+/** Enable cors */
+app.use(cors())
 
 /** Implement Express Session - 8 hours */
 app.use(session({ secret: "mysecrets", resave: false, saveUninitialized: false,
@@ -69,6 +79,7 @@ app.use('/css', express.static(path.resolve('assets/css')))
 app.use('/js', express.static(path.resolve('assets/js')))
 app.use('/bootstrap', express.static(path.resolve('assets/bootstrap')))
 app.use('/fontawesome', express.static(path.resolve('assets/fontawesome')))
+app.use('/photos', express.static(path.resolve('assets/photos')))
 
 /** Import Routes */
 app.use('/', webRoutes)

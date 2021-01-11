@@ -10,16 +10,27 @@
   </div>
 <% } %>
 
-<form action="/blog/new" method="POST">
+<form action="/blog/saveNewBlog" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">Title</label>
-        <input required type="text" name="title" id="title" class="form-control">
+        <input type="text" name="title" id="title" class="form-control"
+          value="<%= typeof title != 'undefined' ? title : '' %>" required>
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea name="description" id="description" class="form-control"></textarea>
+        <textarea name="description" id="description" rows="25" class="form-control"><%= typeof description != 'undefined' ? title : '' %></textarea>
     </div>
 
-    <a href="/bloger/dashboard" class="btn btn-secondary">Cancel</a>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div>
+        <input type="file" name="photo" id="photo" onchange="showUploadedBlogPhoto(this);">
+        <img class="display-uploaded-blog-photo mt-3" src="javascript:void(0)" alt="your uploaded bill"  width="150" height="150" type="application/pdf" >
+        <span class="text-for-upload-blog-photo-bigger-then-1mb text-danger d-none"><small><i>Please upload file less than 1 MB</i></small></span>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="mt-2">
+        <a href="/bloger/dashboard" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="saveBlogButton btn btn-primary">Save</button>
+    </div>
+
 </form>

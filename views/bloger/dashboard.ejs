@@ -25,15 +25,20 @@
 <div class="card mt-4">
     <div class="card-body">
         <h4 class="card-title"><%= blog.title %></h4>
-        <div class="card-subtitle text-muted mb-2">
+        <!-- <div style="background-image:url('/photos/blog-photos/<%= blog.photo %>'); width: 100px; height: 100px" alt="blog-photo"></div> -->
+        <img src="/photos/blog-photos/<%= blog.photo %>" style="width: 100px; height: 100px">
+        <div class="card-subtitle text-muted my-2">
           <%= blog.createdAt.toLocaleDateString() %>
         </div>
-        <div class="card-text mb-2"><%= blog.description %></div>
-        <a href="/blog/<%= blog.id %>" class="btn btn-primary">Read More test</a>
-        <a href="/blog/edit/<%= blog.id %>" class="btn btn-info">Edit</a>
-        <form id="formForDeleteBlog" action="/blog/<%= blog.id %>?_method=DELETE" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger" onclick="deleteBlog(event)">Delete</button>
+        <div class="card-text mb-2" style="height: 70px; overflow: auto"><%= blog.description %></div>
+        <div class="clearfix"></div>
+        <div class="mt-2">
+            <a href="/blog/<%= blog.id %>" class="btn btn-primary">Read More test</a>
+            <a href="/blog/edit/<%= blog.id %>" class="btn btn-info">Edit</a>
+            <form class="formForDeleteBlog d-inline" action="/blog/<%= blog._id %>?_method=DELETE" method="POST" >
+              <button type="submit" class="btn btn-danger">Delete</button>
           </form>
+        </div>
     </div>
 </div>
 <% }) %>
