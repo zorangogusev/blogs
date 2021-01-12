@@ -1,3 +1,5 @@
-/* body {
-    background: yellow;
-} */
+.active-pagination {
+    padding: 10px !important;
+    background: #007bff !important;
+    color: #FFF !important;
+}
