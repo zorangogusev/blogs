@@ -1,0 +1,20 @@
+[
+    {
+        "_id": "5ff624378fb446006314e401",
+        "name": "zoran",
+        "email": "zoran@test.com",
+        "password": "123456"
+    },
+    {
+        "_id": "5ff624378fb446006314e402",
+        "name": "John",
+        "email": "john@test.com",
+        "password": "123456"
+    },
+    {
+        "_id": "5ff624378fb446006314e403",
+        "name": "Smith",
+        "email": "smith@test.com",
+        "password": "123456"
+    }
+]
