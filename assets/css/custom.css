@@ -3,3 +3,7 @@
     background: #007bff !important;
     color: #FFF !important;
 }
+
+.pagination-links > a {
+    padding: 5px;
+}

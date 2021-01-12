@@ -10,11 +10,11 @@ class BlogerController {
     dashboard = async (req, res, next) => {
         let pagination = {}
 
-        /** Pagination - default page = 1, default limit is 3 */
+        /** Pagination - default page = 1, default limit is 2 */
         pagination.currentPage = parseInt(req.query.page, 10) || 1
-        const limit = parseInt(req.query.limit, 10) || 3
-
-        const totalItems = await Blog.countDocuments()
+        const limit = parseInt(req.query.limit, 10) || 2
+        
+        const totalItems = await Blog.countDocuments({ user: req.user.id })
         pagination.totalPages = Math.ceil(totalItems / limit)
 
         /** Get blogs from database */
