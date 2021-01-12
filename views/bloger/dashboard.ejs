@@ -7,6 +7,21 @@
     <%- include('../partials/_messages') %>
 </div>
   
+<div>
+
+    <% if( typeof pagination.prev != 'undefined') { %>
+    <a href="/bloger/dashboard?page=<%= pagination.prev.page %>&limit=1">Prev <i class="fas fa-angle-double-left"></i></a>
+    <!-- <a href="/bloger/dashboard?page=<%= (typeof pagination.prev.page === 'undefined' ? '' : pagination.prev.page) %>&limit=1">Prev <i class="fas fa-angle-double-left"></i></a> -->
+    <% } %>
+
+    <p>pagination</p>
+    
+    <% if( typeof pagination.next != 'undefined') { %>
+    <a href="/bloger/dashboard?page=<%= pagination.next.page %>&limit=1">Next <i class="fas fa-angle-double-right"></i></a>
+    <% } %>
+
+</div>
+
 <% blogs.forEach(blog => { %>
 <div class="card mt-4">
     <div class="card-body">
