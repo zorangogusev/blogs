@@ -27,6 +27,8 @@ const importData = async () => {
 
         const sourceDirectoryOfBlogPhotos = process.cwd() + '/_seeder_data/blog-photos/'
         const destinationDirectoryOfBlogPhotos = process.cwd() + '/assets/photos/blog-photos/'
+        if(!fs.existsSync(destinationDirectoryOfBlogPhotos)) fs.mkdirSync(destinationDirectoryOfBlogPhotos, { recursive: true })
+
         const filesForCopy = await fs.readdirSync(sourceDirectoryOfBlogPhotos)
         for(let filename of filesForCopy){
             /** File destination.txt will be created or overwritten by default */

@@ -11,11 +11,11 @@ const storage = multer.diskStorage({
 })
 
 /**
- * size limit of upload photo is 1000000 Bytes - 1 MB 
+ * size limit of upload photo is 111000 Bytes - 0.105858 MB 
  */
 export const uploadPhoto = multer({
     storage: storage,
-    limits: { fileSize: 1000000 },
+    limits: { fileSize: 111000 },
     fileFilter: function(req, file, callback) {
         checkFileType(req, file, callback)
     }
