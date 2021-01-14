@@ -8,8 +8,7 @@ class BlogerController {
       * @access  Private
      */
     dashboard = async (req, res, next) => {
-
-        res.render('bloger/dashboard', { user: req.user, blogs: res.data.blogs, pagination: res.data.pagination })
+        res.render('bloger/dashboard', { blogs: res.data.blogs, pagination: res.data.pagination })
     }
 }
 

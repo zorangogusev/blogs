@@ -13,7 +13,8 @@ import Blog from '../models/Blog.js'
 const router = express.Router()
 
 
-router.get('/', HomeController.home)
+router.get('/', pagination(Blog, 6), HomeController.home)
+router.get('/view-blog/:id', HomeController.viewBlog)
 router.get('/about', HomeController.about)
 router.get('/login', ensureIsNotAuthenticated,  HomeController.loginPage)
 router.get('/register', ensureIsNotAuthenticated, HomeController.registerPage)
@@ -24,7 +25,7 @@ router.post('/register', UserController.registerUser)
 router.get('/logout', ensureAuthenticated, UserController.logout)
 
 
-router.get('/bloger/dashboard', pagination(Blog), ensureAuthenticated, BlogerController.dashboard)
+router.get('/bloger/dashboard', pagination(Blog, 2), ensureAuthenticated, BlogerController.dashboard)
 
 
 router.get('/blog/new', ensureAuthenticated, BlogController.newBlog)

@@ -1,3 +1,5 @@
+import Blog from '../models/Blog.js'
+
 class HomeController {
     
     /**
@@ -6,7 +8,18 @@ class HomeController {
       * @access  Public
      */
     home = (req, res, next) => {
-        res.render('home')
+        res.render('home', { blogs: res.data.blogs, pagination: res.data.pagination })
+    }
+
+    /**
+      * @desc    View blog
+      * @route   GET /
+      * @access  Public
+     */
+    viewBlog = async (req, res, next) => {        
+        const blog = await Blog.findById({ _id: req.params.id })
+        
+        res.render('view-blog', { blog })
     }
 
     /**

@@ -1,7 +1,7 @@
 <div class="pagination-links text-right mt-3">
 
     <% if( typeof pagination.prev != 'undefined') { %>
-    <a href="/bloger/dashboard?page=<%= pagination.prev.prevPage %>">Prev <i class="fas fa-angle-double-left"></i></a>
+    <a href="<%= pagination.urlParams %>?page=<%= pagination.prev.prevPage %>">Prev <i class="fas fa-angle-double-left"></i></a>
     <% } else { %>
     <a href="javascript:void(0)" style="cursor: not-allowed; opacity: 0.5; text-decoration: none;">Prev <i class="fas fa-angle-double-left"></i></a>
     <% } %>
@@ -9,12 +9,12 @@
     
     <% for(let i = 1; i <= pagination.totalPages; i++) { %>
         <% if( (pagination.currentPage - i) < pagination.numberOfPagesDisplay && (pagination.currentPage + pagination.numberOfPagesDisplay) > i ) { %>
-        <a href="/bloger/dashboard?page=<%= i %>" class="<%= ( pagination.currentPage === i ? 'active-pagination' : '' ) %>"><%= i %></a>
+        <a href="<%= pagination.urlParams %>?page=<%= i %>" class="<%= ( pagination.currentPage === i ? 'active-pagination' : '' ) %>"><%= i %></a>
         <% } %>
     <% } %>
 
     <% if( typeof pagination.next != 'undefined') { %>
-    <a href="/bloger/dashboard?page=<%= pagination.next.nextPage %>">Next <i class="fas fa-angle-double-right"></i></a>
+    <a href="<%= pagination.urlParams %>?page=<%= pagination.next.nextPage %>">Next <i class="fas fa-angle-double-right"></i></a>
     <% } else { %>
     <a href="javascript:void(0)" style="cursor: not-allowed; opacity: 0.5; text-decoration: none;">Next <i class="fas fa-angle-double-right"></i></a>
     <% } %>
