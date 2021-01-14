@@ -1,11 +1,14 @@
 import express from 'express'
 import ensureAuthenticated from '../middleware/ensureAuthenticated.js'
 import ensureIsNotAuthenticated from '../middleware/ensureIsNotAuthenticated.js'
+import pagination from '../middleware/pagination.js'
 
 import HomeController from '../controller/HomeController.js'
 import UserController from '../controller/UserController.js'
 import BlogerController from '../controller/BlogerController.js'
 import BlogController from '../controller/BlogController.js'
+
+import Blog from '../models/Blog.js'
 
 const router = express.Router()
 
@@ -21,7 +24,7 @@ router.post('/register', UserController.registerUser)
 router.get('/logout', ensureAuthenticated, UserController.logout)
 
 
-router.get('/bloger/dashboard', ensureAuthenticated, BlogerController.dashboard)
+router.get('/bloger/dashboard', pagination(Blog), ensureAuthenticated, BlogerController.dashboard)
 
 
 router.get('/blog/new', ensureAuthenticated, BlogController.newBlog)
